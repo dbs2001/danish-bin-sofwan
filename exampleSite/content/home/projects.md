@@ -4,8 +4,8 @@ headless = true
 active = true
 weight = 50
 
-title = "Architecture Case Studies"
-subtitle = "Selected transformations and architecture decisions, generalized to protect confidential details"
+title = "Selected Work"
+subtitle = "A small set of architecture and engineering problems I have worked on."
 
 [content]
   page_type = "project"
@@ -19,7 +19,7 @@ subtitle = "Selected transformations and architecture decisions, generalized to 
     tag = "*"
 
   [[content.filter_button]]
-    name = "Cloud Transformation"
+    name = "Cloud"
     tag = "Cloud Transformation"
 
   [[content.filter_button]]
@@ -27,11 +27,11 @@ subtitle = "Selected transformations and architecture decisions, generalized to 
     tag = "Data Architecture"
 
   [[content.filter_button]]
-    name = "Streaming & Integration"
+    name = "Streaming"
     tag = "Streaming & Integration"
 
   [[content.filter_button]]
-    name = "Analytics Platform"
+    name = "Analytics"
     tag = "Analytics Platform"
 
 [design]
