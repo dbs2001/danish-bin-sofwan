@@ -1,6 +1,6 @@
 ---
 title: "Enterprise Data Platform to AWS"
-summary: "Leading a regulated enterprise data platform from on-premise infrastructure toward a scalable AWS foundation and a safer, faster engineering delivery model."
+summary: "Modernizing an on-premise enterprise data platform toward AWS while preserving controlled change, auditability, and production continuity."
 tags:
   - Cloud Transformation
   - AWS
@@ -9,42 +9,51 @@ date: "2026-01-01T00:00:00Z"
 draft: false
 ---
 
-> This case study is intentionally generalized to protect confidential architecture and organizational details.
+## Problem
 
-## Context
+The platform had to move from on-premise infrastructure toward AWS without interrupting existing reporting and data-processing workloads. The harder part was not the cloud landing zone itself; it was changing the platform while production dependencies, release controls, and audit requirements remained in place.
 
-A regulated enterprise data and reporting platform was evolving from on-premise infrastructure toward AWS while engineering teams also needed to modernize how changes were built, reviewed, and released.
+## My role
 
-The challenge was not simply moving workloads. The migration had to preserve operational continuity, auditability, controlled change, and the ability to support existing reporting while creating a foundation that was easier to scale and evolve.
+I lead architecture and engineering decisions across the migration, including migration sequencing, data-platform boundaries, review standards, and the delivery practices used to move changes safely into production.
 
-## My Role
+## Simplified system view
 
-I lead architecture and migration decisions across the data platform, align engineering standards with the target operating model, and coordinate technical dependencies with product, engineering, and stakeholder groups.
+```text
+Operational / source systems
+          |
+     Batch + CDC
+          |
+          v
+  Integration / ingestion
+          |
+          v
+   AWS data platform
+   |              |
+   |              +--> processing / transformation
+   v
+EDWH + data marts
+          |
+          v
+Reporting / analytics consumers
 
-## Constraints
+Across the stack: CI/CD · GitOps · testing · observability · architecture review
+```
 
-- Regulated banking environment and controlled change processes
-- Existing production workloads that could not be disrupted
-- Migration dependencies across platform, data, deployment, and reporting layers
-- Need to improve delivery practices while migration was still in progress
+## Key design decisions
 
-## Architecture / Approach
+- Migrate incrementally rather than treating the programme as a single cut-over.
+- Separate platform enablement from workload migration so infrastructure and application changes remain independently reviewable.
+- Use CDC where freshness or migration coexistence requires it; keep batch where it remains the simpler and safer option.
+- Preserve rollback paths and operational visibility while workloads move between environments.
+- Standardize CI/CD, review, and release controls as part of the migration instead of reproducing manual legacy processes in the cloud.
 
-The transformation was treated as a platform and engineering change rather than a lift-and-shift exercise. The approach combined a staged AWS migration with clearer architecture governance, trunk-based development, CI/CD, and repeatable engineering standards.
+## What changed
 
-Migration sequencing separated platform enablement from workload modernization so that teams could reduce risk, validate assumptions, and preserve rollback paths as components moved.
+The migration created a clearer target architecture and a repeatable path for moving workloads to AWS. At the same time, engineering practices around version control, review, deployment, and reliability became part of the platform design rather than separate operational activities.
 
-## Key Decisions
+## Technologies & practices
 
-- Establish the cloud and delivery foundation before optimizing individual workloads.
-- Keep infrastructure and application changes independently reviewable wherever possible.
-- Preserve auditability and controlled release practices while increasing deployment automation.
-- Use architecture reviews and RFC governance to make migration decisions explicit and reusable across teams.
+AWS · Data Platform Architecture · CDC · CI/CD · GitOps · Trunk-Based Development · Architecture Governance · Observability
 
-## Outcome
-
-The programme established a scalable cloud foundation and a more mature engineering delivery model for continued migration. It also shifted the conversation from one-off infrastructure moves toward repeatable platform capabilities, governed architecture decisions, and safer release practices.
-
-## Technologies & Practices
-
-AWS · Data Platform Architecture · CI/CD · GitOps · Trunk-Based Development · Architecture Governance
+*Company-specific implementation details are intentionally omitted.*
