@@ -7,6 +7,26 @@
 
 	"use strict";
 
+	// Keep the hero markup compatible with the original Clark template before
+	// Scrollax and Waypoints are initialized. The portfolio HTML uses a custom
+	// right-hand content block, but the animated text wrapper must retain the
+	// original template contract: .ftco-animate + data-scrollax and the original
+	// row alignment/order.
+	var $heroRow = $('#home-section .slider-text');
+	var $heroIntro = $heroRow.find('.hero-intro');
+	if ($heroIntro.length) {
+		$heroRow.removeClass('align-items-center').addClass('align-items-end justify-content-end');
+		$heroIntro
+			.removeClass('hero-intro')
+			.addClass('ftco-animate')
+			.attr('data-scrollax', " properties: { translateY: '70%' }");
+
+		var $heroVisual = $heroRow.find('.one-third');
+		if ($heroVisual.length && !$heroVisual.is(':first-child')) {
+			$heroVisual.prependTo($heroRow);
+		}
+	}
+
 	$(window).stellar({
     responsive: true,
     parallaxBackgrounds: true,
