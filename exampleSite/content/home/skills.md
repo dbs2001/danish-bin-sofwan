@@ -1,27 +1,21 @@
 +++
-widget = "featurette"
+widget = "blank"
 headless = true
 active = true
 weight = 30
 
-title = "What I Lead"
-subtitle = "Three areas that define my work"
+title = "Expertise"
+subtitle = ""
 
-[[feature]]
-  icon = "project-diagram"
-  icon_pack = "fas"
-  name = "Architecture"
-  summary = "Enterprise data platforms, cloud architecture, EDWH and Data Vault, streaming, and integration patterns."
-
-[[feature]]
-  icon = "users-cog"
-  icon_pack = "fas"
-  name = "Engineering Leadership"
-  summary = "Architecture governance, engineering standards, team development, CI/CD, reliability, and delivery alignment."
-
-[[feature]]
-  icon = "brain"
-  icon_pack = "fas"
-  name = "Data & AI Transformation"
-  summary = "Cloud modernization, AI-assisted engineering, automation, and governed adoption of AI/LLM platforms."
+[design]
+  columns = "1"
 +++
+**Data architecture** — Enterprise data warehouses, Data Vault 2.0, dimensional modelling, data marts, and governed analytical structures.
+
+**Cloud & distributed data platforms** — AWS, GCP, Greenplum, Snowflake, Redshift, Spark, and large-scale analytical processing.
+
+**Streaming & integration** — Kafka, CDC, Pub/Sub, near-real-time pipelines, and decoupled integration patterns.
+
+**Engineering practices** — Python, SQL, Airflow, CI/CD, GitOps, trunk-based development, testing, automation, and production reliability.
+
+**Analytics & AI** — Qlik Cloud, recommendation systems, AI/LLM platforms and APIs, vector search, and AI-assisted engineering.
