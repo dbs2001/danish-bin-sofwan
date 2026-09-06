@@ -1,0 +1,155 @@
+/* Portfolio-specific layout adjustments.
+   The original Clark/Colorlib palette, typography, spacing system, and interaction styles remain intact. */
+
+.hero-copy {
+  max-width: 650px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.hero-profile-card {
+  width: 100%;
+  max-width: 390px;
+  padding: 42px 38px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.hero-monogram {
+  margin-bottom: 34px;
+  color: #ffbd39;
+  font-size: 76px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -4px;
+}
+
+.hero-profile-line {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-profile-line strong {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.hero-profile-line span {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.about-focus-card {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 48px 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1a1a1a;
+}
+
+.about-focus-card .subheading {
+  color: #ffbd39;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.about-focus-card h3 {
+  margin: 18px 0 26px;
+  color: #fff;
+  font-size: 26px;
+  line-height: 1.45;
+}
+
+.about-focus-card ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.about-focus-card li {
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.services-1 {
+  cursor: default;
+}
+
+.services-1 .desc p {
+  margin: -18px 20px 0;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.technology-group {
+  height: calc(100% - 30px);
+  margin-bottom: 30px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.technology-group h3 {
+  margin-bottom: 12px;
+  color: #ffbd39;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.technology-group p {
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.8;
+}
+
+.project .text h3 {
+  color: #fff;
+}
+
+.project .text span {
+  display: block;
+  line-height: 1.6;
+}
+
+.about-info a {
+  color: inherit;
+}
+
+@media (max-width: 991.98px) {
+  .hero-profile-card {
+    margin: 3rem auto 0;
+  }
+
+  .hero .slider-text .one-forth,
+  .hero .slider-text .one-third {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero .slider-text {
+    min-height: 900px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-monogram {
+    font-size: 58px;
+  }
+
+  .hero-profile-card,
+  .about-focus-card {
+    padding: 32px 26px;
+  }
+
+  .hero .slider-text {
+    min-height: 980px;
+  }
+}
