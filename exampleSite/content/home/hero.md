@@ -12,19 +12,13 @@ hero_media = ""
   text_color_light = false
 
 [btn]
-  url = "#experience"
-  label = "View Experience"
+  url = "#projects"
+  label = "Selected Work"
 
 [btn_alt]
-  url = "#projects"
-  label = "View Case Studies"
+  url = "#experience"
+  label = "Experience"
 +++
-<div class="portfolio-kicker">Data · Architecture · Engineering Leadership</div>
-
-# Danish Bin Sofwan
-
 ## Data Engineering Leader & Data/AI Architect
 
-<p class="portfolio-hero-copy">Building scalable data platforms, leading engineering transformation, and shaping enterprise Data & AI architecture.</p>
-
-<p class="portfolio-hero-meta">10 years · Banking & Telecom · Vienna, Austria</p>
+I design and evolve enterprise data platforms, and lead the engineering practices that make them reliable, governable, and easier to change.
