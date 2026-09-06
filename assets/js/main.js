@@ -41,14 +41,54 @@
   if (document.body.classList.contains('index-page')) {
     document.title = 'Danish Bin Sofwan | Data Engineering Leader & Data/AI Architect';
 
-    const heroTitle = document.querySelector('#hero h2');
+    const hero = document.querySelector('#hero');
+    const heroTitle = hero?.querySelector('h2');
+    const heroTyped = hero?.querySelector('.typed');
+    const heroContainer = hero?.querySelector('.container');
+
     if (heroTitle) {
       heroTitle.textContent = 'Danish Bin Sofwan';
     }
 
-    const heroTyped = document.querySelector('#hero .typed');
     if (heroTyped) {
-      heroTyped.setAttribute('data-typed-items', 'Data Engineering Leader, Data & AI Architect, Engineering Lead');
+      heroTyped.setAttribute(
+        'data-typed-items',
+        'Data Engineering Leader, Systems Design Architect, Engineering Excellence, Lead Data & AI Architect'
+      );
+    }
+
+    if (heroContainer && !heroContainer.querySelector('.hero-meta')) {
+      const heroMeta = document.createElement('div');
+      heroMeta.className = 'hero-meta d-flex flex-wrap justify-content-center align-items-center';
+      heroMeta.style.gap = '12px 28px';
+      heroMeta.style.marginTop = '18px';
+      heroMeta.style.fontSize = '15px';
+      heroMeta.style.fontWeight = '400';
+      heroMeta.style.color = 'rgba(255, 255, 255, 0.82)';
+      heroMeta.innerHTML = `
+        <span><i class="bi bi-briefcase me-2"></i>10 Years Experience</span>
+        <span><i class="bi bi-geo-alt me-2"></i>Austria</span>
+      `;
+      heroContainer.appendChild(heroMeta);
+    }
+
+    if (hero && !hero.querySelector('.hero-photo-credit')) {
+      const photoCredit = document.createElement('small');
+      photoCredit.className = 'hero-photo-credit';
+      photoCredit.textContent = 'Photo by me. I occasionally architect light instead of data.';
+      photoCredit.style.position = 'absolute';
+      photoCredit.style.right = '22px';
+      photoCredit.style.bottom = '16px';
+      photoCredit.style.zIndex = '3';
+      photoCredit.style.maxWidth = 'min(420px, calc(100% - 44px))';
+      photoCredit.style.fontSize = '12px';
+      photoCredit.style.fontStyle = 'italic';
+      photoCredit.style.fontWeight = '300';
+      photoCredit.style.lineHeight = '1.4';
+      photoCredit.style.textAlign = 'right';
+      photoCredit.style.color = 'rgba(255, 255, 255, 0.68)';
+      photoCredit.style.textShadow = '0 1px 3px rgba(0, 0, 0, 0.45)';
+      hero.appendChild(photoCredit);
     }
   }
 
@@ -157,7 +197,7 @@
       loop: true,
       typeSpeed: 100,
       backSpeed: 50,
-      backDelay: 2000
+      backDelay: 2200
     });
   }
 
