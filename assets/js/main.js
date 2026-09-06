@@ -10,12 +10,15 @@
   "use strict";
 
   /**
-   * Portfolio navbar personalization
+   * Portfolio identity + navbar personalization
    */
   const siteName = document.querySelector('#header .sitename');
   if (siteName) {
-    siteName.textContent = 'DBS';
-    siteName.style.color = '#ffc107';
+    const compactSiteName = document.createElement('h3');
+    compactSiteName.className = 'sitename mb-0';
+    compactSiteName.textContent = 'DBS.';
+    compactSiteName.style.color = '#ffc107';
+    siteName.replaceWith(compactSiteName);
   }
 
   // Keep the original dropdown markup available for future use, but hide it for now.
@@ -30,6 +33,23 @@
     document.querySelectorAll('#navmenu > ul > li > a[href^="#"]').forEach(link => {
       link.setAttribute('href', `index.html${link.getAttribute('href')}`);
     });
+  }
+
+  /**
+   * Home hero personalization
+   */
+  if (document.body.classList.contains('index-page')) {
+    document.title = 'Danish Bin Sofwan | Data Engineering Leader & Data/AI Architect';
+
+    const heroTitle = document.querySelector('#hero h2');
+    if (heroTitle) {
+      heroTitle.textContent = 'Danish Bin Sofwan';
+    }
+
+    const heroTyped = document.querySelector('#hero .typed');
+    if (heroTyped) {
+      heroTyped.setAttribute('data-typed-items', 'Data Engineering Leader, Data & AI Architect, Engineering Lead');
+    }
   }
 
   /**
