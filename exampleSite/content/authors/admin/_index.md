@@ -7,9 +7,14 @@ role: Data Engineering Leader | Data & AI Architect
 organizations:
   - name: Raiffeisen Bank Group IT
     url: ""
-bio: Data Engineering Leader and Architect focused on enterprise data platforms, cloud transformation, engineering governance, and AI-assisted engineering.
-display_education: false
-interests: []
+bio: Engineering lead and data architect working across enterprise data platforms, cloud transformation, analytics, and engineering practices.
+display_education: true
+interests:
+  - Enterprise Data Architecture
+  - Cloud Data Platforms
+  - Streaming & Integration
+  - Engineering Practices
+  - Applied AI
 education:
   courses:
     - course: Bachelor of Science in Computer Science
@@ -25,12 +30,11 @@ social:
   - icon: github
     icon_pack: fab
     link: https://github.com/dbs2001
-  - icon: globe
-    icon_pack: fas
-    link: https://blog.datasaaz.com/
 email: "danish.bin.sofwan@hotmail.com"
 user_groups: []
 ---
-I lead and shape enterprise data platforms across architecture, engineering delivery, cloud transformation, and governance.
+I have spent the last decade building and evolving data platforms across banking, telecom, AI, and large-scale digital products.
 
-My experience spans banking, telecom, AI, and large-scale digital platforms, with a focus on building systems that are scalable, reliable, auditable, and easier for engineering teams to evolve.
+My work sits between architecture and engineering delivery: defining data models and integration patterns, modernizing platforms, improving CI/CD and release practices, and helping teams make technical decisions that hold up in production.
+
+I am based in Vienna, Austria, where I currently work as an Engineering Lead in banking.
