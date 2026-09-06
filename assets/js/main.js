@@ -53,7 +53,7 @@
     if (heroTyped) {
       heroTyped.setAttribute(
         'data-typed-items',
-        'Data Engineering Leader, Systems Design Architect, Engineering Excellence, AI Architect, '
+        'Data Engineering Leader, Systems Design Architect, Engineering Excellence, Lead Data & AI Architect'
       );
     }
 
@@ -70,6 +70,88 @@
         <span><i class="bi bi-geo-alt me-2"></i>Austria</span>
       `;
       heroContainer.appendChild(heroMeta);
+    }
+
+    if (hero && !hero.querySelector('.hero-title-stack')) {
+      const titleStack = document.createElement('div');
+      titleStack.className = 'hero-title-stack';
+      titleStack.setAttribute('aria-label', 'Completed professional titles');
+      hero.appendChild(titleStack);
+    }
+
+    if (hero && !document.querySelector('#hero-stack-styles')) {
+      const heroStackStyles = document.createElement('style');
+      heroStackStyles.id = 'hero-stack-styles';
+      heroStackStyles.textContent = `
+        .hero-title-stack {
+          position: absolute;
+          right: 4vw;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 3;
+          width: min(300px, 25vw);
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 9px;
+          text-align: right;
+          pointer-events: none;
+        }
+
+        .hero-title-stack .hero-title-stack-item {
+          margin: 0;
+          font-family: var(--heading-font);
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1.35;
+          letter-spacing: 0.2px;
+          color: rgba(255, 255, 255, 0.68);
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+          white-space: pre;
+        }
+
+        .hero-title-stack .hero-title-stack-char {
+          opacity: 0;
+          transition: opacity 0.12s ease;
+        }
+
+        .hero-title-stack .hero-title-stack-char.is-visible {
+          opacity: 1;
+        }
+
+        .hero-title-stack.is-clearing .hero-title-stack-item {
+          opacity: 0;
+          transform: translateX(8px);
+          transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #hero .typed-cursor.hero-custom-cursor {
+          display: inline-block;
+          margin-left: 2px;
+          font-weight: 300;
+          animation: heroCursorBlink 0.75s step-end infinite;
+        }
+
+        @keyframes heroCursorBlink {
+          0%, 50% { opacity: 1; }
+          51%, 100% { opacity: 0; }
+        }
+
+        @media (max-width: 991px) {
+          .hero-title-stack {
+            position: relative;
+            right: auto;
+            top: auto;
+            transform: none;
+            width: 100%;
+            align-items: center;
+            text-align: center;
+            margin-top: 24px;
+            min-height: 84px;
+          }
+        }
+      `;
+      document.head.appendChild(heroStackStyles);
     }
 
     if (hero && !hero.querySelector('.hero-photo-credit')) {
@@ -186,19 +268,97 @@
   window.addEventListener('load', aosInit);
 
   /**
-   * Init typed.js
+   * Type each hero title, then transfer its characters into the right-side stack while deleting.
    */
   const selectTyped = document.querySelector('.typed');
   if (selectTyped) {
-    let typed_strings = selectTyped.getAttribute('data-typed-items');
-    typed_strings = typed_strings.split(',');
-    new Typed('.typed', {
-      strings: typed_strings,
-      loop: true,
-      typeSpeed: 100,
-      backSpeed: 50,
-      backDelay: 2200
-    });
+    const typedStrings = selectTyped
+      .getAttribute('data-typed-items')
+      .split(',')
+      .map(item => item.trim())
+      .filter(Boolean);
+    const titleStack = document.querySelector('.hero-title-stack');
+
+    if (document.body.classList.contains('index-page') && titleStack && typedStrings.length) {
+      const typeSpeed = 100;
+      const backSpeed = 50;
+      const holdTime = 2200;
+      const betweenTitles = 250;
+      const completeStackHold = 2200;
+      const sleep = delay => new Promise(resolve => setTimeout(resolve, delay));
+
+      selectTyped.textContent = '';
+
+      const cursor = document.createElement('span');
+      cursor.className = 'typed-cursor hero-custom-cursor';
+      cursor.setAttribute('aria-hidden', 'true');
+      cursor.textContent = '|';
+      selectTyped.insertAdjacentElement('afterend', cursor);
+
+      function createStackItem(title) {
+        const stackItem = document.createElement('div');
+        stackItem.className = 'hero-title-stack-item';
+
+        Array.from(title).forEach(character => {
+          const characterSpan = document.createElement('span');
+          characterSpan.className = 'hero-title-stack-char';
+          characterSpan.textContent = character;
+          stackItem.appendChild(characterSpan);
+        });
+
+        titleStack.appendChild(stackItem);
+        return Array.from(stackItem.children);
+      }
+
+      async function typeTitle(title) {
+        selectTyped.textContent = '';
+        for (let index = 1; index <= title.length; index += 1) {
+          selectTyped.textContent = title.slice(0, index);
+          await sleep(typeSpeed);
+        }
+      }
+
+      async function transferTitleToStack(title) {
+        const stackCharacters = createStackItem(title);
+
+        for (let index = title.length - 1; index >= 0; index -= 1) {
+          selectTyped.textContent = title.slice(0, index);
+          stackCharacters[index].classList.add('is-visible');
+          await sleep(backSpeed);
+        }
+      }
+
+      async function clearCompletedStack() {
+        titleStack.classList.add('is-clearing');
+        await sleep(320);
+        titleStack.replaceChildren();
+        titleStack.classList.remove('is-clearing');
+      }
+
+      async function runHeroTitleCycle() {
+        while (true) {
+          for (const title of typedStrings) {
+            await typeTitle(title);
+            await sleep(holdTime);
+            await transferTitleToStack(title);
+            await sleep(betweenTitles);
+          }
+
+          await sleep(completeStackHold);
+          await clearCompletedStack();
+        }
+      }
+
+      runHeroTitleCycle();
+    } else {
+      new Typed('.typed', {
+        strings: typedStrings,
+        loop: true,
+        typeSpeed: 100,
+        backSpeed: 50,
+        backDelay: 2200
+      });
+    }
   }
 
   /**
