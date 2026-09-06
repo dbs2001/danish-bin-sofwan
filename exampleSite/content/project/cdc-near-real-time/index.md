@@ -1,6 +1,6 @@
 ---
 title: "CDC & Near-Real-Time Integration"
-summary: "Using change data capture and streaming patterns to reduce coupling, improve data freshness, and create more reliable downstream integration."
+summary: "Decoupling analytical consumers from operational systems using change data capture and streaming patterns."
 tags:
   - Streaming & Integration
   - CDC
@@ -9,42 +9,56 @@ date: "2025-07-01T00:00:00Z"
 draft: false
 ---
 
-> This case study is intentionally generalized to protect confidential architecture and organizational details.
+## Problem
 
-## Context
+Direct extracts and point-to-point integrations make analytical consumers dependent on operational databases, duplicate source-specific logic, and become harder to manage as more consumers are added.
 
-Traditional batch and point-to-point integration patterns can make analytical consumers dependent on operational source behavior, create unnecessary latency, and multiply coupling as new consumers are added.
+The goal was to improve freshness without moving that coupling into a faster transport layer.
 
-The integration architecture needed to improve freshness without turning every downstream application into a direct dependency of transactional systems.
+## My role
 
-## My Role
+I design and review integration patterns across the data platform, including CDC ingestion, streaming boundaries, downstream processing, and the operational behaviour expected around replay and recovery.
 
-I design and guide integration patterns across enterprise data platforms, including CDC-oriented ingestion, streaming, data contracts, and the boundaries between operational sources and downstream analytical consumers.
+## Integration pattern
 
-## Constraints
+```text
+Operational database
+       |
+       | change log
+       v
+      CDC
+       |
+       v
+Kafka / event layer
+   |           |
+   |           +--> near-real-time consumer
+   |
+   +--> transformation / persistence
+                |
+                v
+          EDWH / data marts
+                |
+                v
+          reporting / analytics
+```
 
-- Operational systems must remain insulated from analytical workloads
-- Different consumers have different freshness and processing requirements
-- Failure and replay behavior need to be understandable and recoverable
-- Integration should reduce rather than redistribute coupling
+## Design questions that mattered
 
-## Architecture / Approach
+| Concern | Design response |
+| --- | --- |
+| Source load | Capture changes rather than repeatedly scanning full source tables where feasible. |
+| Consumer coupling | Consumers read from the integration layer rather than operational databases. |
+| Duplicate delivery | Processing must be idempotent where the transport can redeliver events. |
+| Recovery | Retention and replay behaviour are designed before production rollout. |
+| Schema change | Source changes are treated as contract changes, not silent implementation details. |
+| Latency | Streaming is used only when the business requirement justifies its operational cost. |
 
-Changes are captured close to the source and propagated through decoupled integration layers. Streaming is used where near-real-time consumption is required, while downstream processing remains responsible for transforming events into stable analytical structures.
+## Result
 
-The key architectural concern is not simply transport speed. It is defining ownership, replay behavior, failure isolation, and clear boundaries between source-system change events and downstream business models.
+The pattern creates a cleaner boundary between operational systems and analytical consumers. New consumers can be introduced without creating another direct dependency on the source, while batch and streaming can coexist according to the actual freshness requirement.
 
-## Key Decisions
+## Technologies & practices
 
-- Prefer CDC over repeated full extraction when source-change semantics support it.
-- Decouple analytical consumers from operational databases and source-specific access patterns.
-- Treat replay, idempotency, and failure recovery as first-class design concerns.
-- Use streaming selectively where latency requirements justify the additional operational complexity.
+CDC · Kafka · Streaming · SQL · Event-Driven Integration · Idempotency · Replay & Recovery
 
-## Outcome
-
-The pattern improves data availability and consistency for downstream analytics while reducing direct source dependencies. It also provides a clearer foundation for near-real-time use cases without forcing all consumers into the same processing model.
-
-## Technologies & Practices
-
-CDC · Kafka · Streaming · SQL · Event-Driven Integration · Near-Real-Time Data Processing
+*Company-specific implementation details are intentionally omitted.*
