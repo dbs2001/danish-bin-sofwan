@@ -14,13 +14,16 @@
 {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist. See https://sourcethemes.com/academic/docs/page-builder/#about " $person_page_path }}
 {{end}}
 {{ $person := $person_page.Params }}
+{{ $avatar_image := $page.Params.avatar_image | default "" }}
+{{ $has_avatar := ne $avatar_image "" }}
 
 <!-- About widget -->
 <div class="row" itemprop="author" itemscope itemtype="http://schema.org/Person"
   itemref="{{ if site.Params.email }}person-email{{ end }}{{ if site.Params.phone }} person-telephone{{ end }}{{ if site.Params.address}} person-address{{ end }}">
+
+  {{ if $has_avatar }}
   <div class="col-lg-5">
     <div id="profile">
-      {{ $avatar_image := .page.Params.avatar_image }}
       <img class="img-fluid" src="{{ printf "img/%s" $avatar_image | relURL }}" itemprop="image" alt="Avatar">
     </div>
     <ul class="network-icon bg-white mx-2 py-2 text-center" aria-hidden="true">
@@ -46,8 +49,9 @@
       {{ end }}
     </ul>
   </div>
-  <div class="col-lg-7" itemprop="description">
+  {{ end }}
 
+  <div class="{{ if $has_avatar }}col-lg-7{{ else }}col-lg-12{{ end }}" itemprop="description">
     <div class="portrait-title">
       <h2 itemprop="name">{{ $person.name }}</h2>
       {{ with $person.role }}<h3 class="d-inline-block" itemprop="jobTitle">{{ . | markdownify | emojify }},</h3>{{ end }}
@@ -61,19 +65,40 @@
       {{ end }}
     </div>
 
+    {{ if not $has_avatar }}
+    <ul class="network-icon py-2" aria-hidden="true">
+      {{ range $person.social }}
+      {{ $pack := or .icon_pack "fas" }}
+      {{ $pack_prefix := $pack }}
+      {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+      {{ $pack_prefix = "fa" }}
+      {{ end }}
+      {{ $link := .link }}
+      {{ $scheme := (urls.Parse $link).Scheme }}
+      {{ $target := "" }}
+      {{ if not $scheme }}
+      {{ $link = .link | relLangURL }}
+      {{ else if in (slice "http" "https") $scheme }}
+      {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ end }}
+      <li class="mr-3">
+        <a itemprop="sameAs" href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
+          <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}"></i>
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+    {{ end }}
+
     <link itemprop="url" href="{{ .Permalink }}">
-
-
 
     {{ $person_page.Content }}
     {{ range $person.btn }}
     <a href="{{ .url }}" class="btn btn-primary btn-lg"><i class="fas fa-download mr-2" aria-hidden="true"></i>{{ .label }}</a>
     {{ end }}
 
-
     {{ if $person.display_education }}
     <div class="row">
-
       {{ with $person.education }}
       <div class="col-md-7">
         <h3>{{ i18n "education" | markdownify }}</h3>
@@ -101,7 +126,6 @@
         </ul>
       </div>
       {{ end }}
-
     </div>
     {{ end }}
   </div>
