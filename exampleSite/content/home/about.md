@@ -4,4 +4,5 @@ headless = true
 active = true
 weight = 20
 author = "admin"
+avatar_image = ""
 +++
