@@ -53,7 +53,7 @@
     if (heroTyped) {
       heroTyped.setAttribute(
         'data-typed-items',
-        'Data Engineering Leader, Systems Design Architect, Engineering Excellence, Lead Data & AI Architect'
+        'Data Engineering Leader, Systems Design Architect, Engineering Excellence, AI Architect, '
       );
     }
 
