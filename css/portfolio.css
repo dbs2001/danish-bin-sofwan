@@ -1,6 +1,11 @@
 /* Portfolio-specific layout adjustments.
    The original Clark/Colorlib palette, typography, spacing system, and interaction styles remain intact. */
 
+.hero-intro {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .hero-copy {
   max-width: 650px;
   color: rgba(255, 255, 255, 0.8);
