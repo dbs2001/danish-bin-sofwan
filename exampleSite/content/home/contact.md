@@ -1,6 +1,9 @@
 +++
 widget = "contact"
 headless = true
-active = false
-weight = 80
+active = true
+weight = 70
+
+title = "Contact"
+subtitle = ""
 +++
