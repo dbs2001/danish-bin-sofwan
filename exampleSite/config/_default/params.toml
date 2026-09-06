@@ -2,24 +2,22 @@
 
 microsoft_clarity = ""
 
-# Visual identity
-color_theme = "danish"
+# Use the template's native visual language.
+color_theme = "default"
 day_night = true
 font = "classic"
 
-description = "Data Engineering Leader and Data & AI Architect with 10 years of experience leading enterprise data platforms, cloud transformation, engineering governance, and AI-assisted engineering."
+description = "Data Engineering Leader and Data & AI Architect with 10 years of experience across enterprise data platforms, cloud transformation, analytics, and engineering leadership."
 sharing_image = ""
 twitter = ""
 logo = ""
 
-# Content rendering
 highlight = true
 math = false
 privacy_pack = false
 date_format = "Jan 2, 2006"
 time_format = "3:04 PM"
 
-# Contact details. The site intentionally does not publish a phone number.
 email = "danish.bin.sofwan@hotmail.com"
 phone = ""
 address = "Vienna, Austria"
@@ -29,18 +27,15 @@ appointment_url = ""
 contact_links = [
   {icon = "linkedin", icon_pack = "fab", name = "LinkedIn", link = "https://www.linkedin.com/in/danishbinsofwan/"},
   {icon = "github", icon_pack = "fab", name = "GitHub", link = "https://github.com/dbs2001"},
-  {icon = "globe", icon_pack = "fas", name = "DataSaaz", link = "https://blog.datasaaz.com/"},
 ]
 
-# No map is required for a professional portfolio.
 map = 0
 map_api_key = ""
 latitude = ""
 longitude = ""
 zoom = 15
 
-# Custom portfolio styling.
-plugins_css = ["portfolio"]
+plugins_css = []
 plugins_js = []
 
 gravatar = false
