@@ -10,6 +10,29 @@
   "use strict";
 
   /**
+   * Portfolio navbar personalization
+   */
+  const siteName = document.querySelector('#header .sitename');
+  if (siteName) {
+    siteName.textContent = 'DBS';
+    siteName.style.color = '#ffc107';
+  }
+
+  // Keep the original dropdown markup available for future use, but hide it for now.
+  const navbarDropdown = document.querySelector('#navmenu > ul > li.dropdown');
+  if (navbarDropdown) {
+    navbarDropdown.classList.add('d-none');
+    navbarDropdown.setAttribute('aria-hidden', 'true');
+  }
+
+  // Detail pages should navigate back to the matching section on the homepage.
+  if (!document.body.classList.contains('index-page')) {
+    document.querySelectorAll('#navmenu > ul > li > a[href^="#"]').forEach(link => {
+      link.setAttribute('href', `index.html${link.getAttribute('href')}`);
+    });
+  }
+
+  /**
    * Apply .scrolled class to the body as the page is scrolled down
    */
   function toggleScrolled() {
